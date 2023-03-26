@@ -42,7 +42,7 @@ namespace DDDInPractice.Tests
             Money hundredCents = new Money(100, 0, 0, 0, 0, 0);
 
             dollar.Should().NotBe(hundredCents);
-            dollar.GetHashCode().Should().NotBe(hundredCents.GetHashCode());    
+            dollar.GetHashCode().Should().NotBe(hundredCents.GetHashCode());
         }
 
         [Theory]
@@ -54,10 +54,10 @@ namespace DDDInPractice.Tests
         [InlineData(0, 0, 0, 0, 0, -6)]
         public void Cannot_create_money_with_negative_value(
             int oneCentCount,
-            int tenCentCount, 
-            int quarterCentCount, 
-            int oneDollarCount, 
-            int fiveDollarCount, 
+            int tenCentCount,
+            int quarterCentCount,
+            int oneDollarCount,
+            int fiveDollarCount,
             int twentyDollarCount)
         {
             Action action = () => new Money(
@@ -71,5 +71,39 @@ namespace DDDInPractice.Tests
 
             action.Should().Throw<InvalidOperationException>();
         }
+
+        [Theory]
+        [InlineData(0, 0, 0, 0, 0, 0, 0)]
+        [InlineData(1, 0, 0, 0, 0, 0, 0.01)]
+        [InlineData(1, 2, 0, 0, 0, 0, 0.21)]
+        [InlineData(1, 2, 3, 0, 0, 0, 0.96)]
+        [InlineData(1, 2, 3, 4, 0, 0, 4.96)]
+        [InlineData(1, 2, 3, 4, 5, 0, 29.96)]
+        [InlineData(1, 2, 3, 4, 5, 6, 149.96)]
+        [InlineData(11, 0, 0, 0, 0, 0, 0.11)]
+        [InlineData(110, 0, 0, 0, 100, 0, 501.1)]
+        public void Amount_is_calculated_correctly(
+            int oneCentCount,
+            int tenCentCount,
+            int quarterCentCount,
+            int oneDollarCount,
+            int fiveDollarCount,
+            int twentyDollarCount,
+            decimal expectedAmount
+            )
+        {
+            Money money = new Money(
+                oneCentCount,
+                tenCentCount,
+                quarterCentCount,
+                oneDollarCount,
+                fiveDollarCount,
+                twentyDollarCount
+                );
+
+            money.Amount.Should().Be(expectedAmount);
+        }
+
+
     }
 }

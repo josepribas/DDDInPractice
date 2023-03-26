@@ -1,26 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DDDInPractice.Logic
+﻿namespace DDDInPractice.Logic
 {
-    public sealed class Money: ValueObject<Money>
+    public sealed class Money : ValueObject<Money>
     {
-        public int OneCentCount { get; set; }
-        public int TenCentCount { get; set; }
-        public int QuarterCentCount { get; set; }
-        public int OneDollarCount { get; set; }
-        public int FiveDollarCount { get; set; }
-        public int TwentyDollarCount { get; set; }
+        public int OneCentCount { get; }
+        public int TenCentCount { get; }
+        public int QuarterCentCount { get; }
+        public int OneDollarCount { get; }
+        public int FiveDollarCount { get; }
+        public int TwentyDollarCount { get; }
+
+        public decimal Amount
+        {
+            get
+            {
+                return
+                    OneCentCount * 0.01m +
+                    TenCentCount * 0.10m +
+                    QuarterCentCount * 0.25m +
+                    OneDollarCount +
+                    FiveDollarCount * 5m +
+                    TwentyDollarCount * 20m;
+            }
+        }
 
         public Money(
-            int oneCentCount, 
-            int tenCentCount, 
-            int quarterCentCount, 
-            int oneDollarCount, 
-            int fiveDollarCount, 
+            int oneCentCount,
+            int tenCentCount,
+            int quarterCentCount,
+            int oneDollarCount,
+            int fiveDollarCount,
             int twentyDollarCount)
         {
             if (oneCentCount < 0)
@@ -66,7 +74,7 @@ namespace DDDInPractice.Logic
                 QuarterCentCount == other.QuarterCentCount &&
                 OneDollarCount == other.OneDollarCount &&
                 FiveDollarCount == other.FiveDollarCount &&
-                TwentyDollarCount == other.TwentyDollarCount;                
+                TwentyDollarCount == other.TwentyDollarCount;
         }
 
         protected override int GetHashCodeCore()
