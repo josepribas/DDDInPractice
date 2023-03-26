@@ -1,24 +1,32 @@
-﻿namespace DDDInPractice.Logic
+﻿using static DDDInPractice.Logic.Money;
+
+namespace DDDInPractice.Logic
 {
     public sealed class SnackMachine: Entity
     {
-        public Money MoneyInside { get; private set; }
-        public Money MoneyInTransaction { get; private set; }
+        public Money MoneyInside { get; private set; } = None;
+        public Money MoneyInTransaction { get; private set; } = None;
 
         public void InsertMoney(Money money)
         {
+            Money[] CoinsAndNotes = { Cent, TenCent, Quarter, Dollar, FiveDollar, TwentyDollar };
+            if (!CoinsAndNotes.Contains(money))
+            {
+                throw new InvalidOperationException();
+            }
+
             MoneyInTransaction += money;
         }
 
         public void ReturnMoney()
         {
-            //MoneyInTransaction = 0;
+            MoneyInTransaction = None;
         }
 
         public void BuySnack()
         {
             MoneyInside += MoneyInTransaction;
-            //MoneyInTransaction = 0;
+            MoneyInTransaction = None;
 
         }
     }
