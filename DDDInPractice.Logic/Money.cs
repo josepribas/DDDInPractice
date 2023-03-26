@@ -9,19 +9,13 @@
         public int FiveDollarCount { get; }
         public int TwentyDollarCount { get; }
 
-        public decimal Amount
-        {
-            get
-            {
-                return
+        public decimal Amount => 
                     OneCentCount * 0.01m +
                     TenCentCount * 0.10m +
                     QuarterCentCount * 0.25m +
                     OneDollarCount +
                     FiveDollarCount * 5m +
                     TwentyDollarCount * 20m;
-            }
-        }
 
         public Money(
             int oneCentCount,
@@ -64,6 +58,18 @@
                 );
 
             return sum;
+        }
+
+        public static Money operator -(Money money1, Money money2)
+        {
+            return new Money(
+                money1.OneCentCount - money2.OneCentCount,
+                money1.TenCentCount - money2.TenCentCount,
+                money1.QuarterCentCount - money2.QuarterCentCount,
+                money1.OneDollarCount - money2.OneDollarCount,
+                money1.FiveDollarCount - money2.FiveDollarCount,
+                money1.TwentyDollarCount - money2.TwentyDollarCount
+                );
         }
 
         protected override bool EqualsCore(Money other)
