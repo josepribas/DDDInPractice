@@ -42,7 +42,7 @@ namespace DDDInPractice.Logic
 
         public static bool operator !=(Entity a, Entity b)
         {
-            return !a.Equals(b);
+            return !(a==b);
         }
 
         public override int GetHashCode()
