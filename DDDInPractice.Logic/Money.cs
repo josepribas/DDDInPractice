@@ -52,7 +52,16 @@ namespace DDDInPractice.Logic
 
         protected override int GetHashCodeCore()
         {
-            throw new NotImplementedException();
+            unchecked
+            {
+                int hashCode = OneCentCount;
+                hashCode = (hashCode * 397) ^ TenCentCount;
+                hashCode = (hashCode * 397) ^ QuarterCentCount;
+                hashCode = (hashCode * 397) ^ OneDollarCount;
+                hashCode = (hashCode * 397) ^ FiveDollarCount;
+                hashCode = (hashCode * 397) ^ TwentyDollarCount;
+                return hashCode;
+            }
         }
     }
 }
