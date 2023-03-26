@@ -47,7 +47,7 @@ namespace DDDInPractice.Logic
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return (GetType().ToString() + Id).GetHashCode();
         }
     }
 }
