@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DDDInPractice.Logic
 {
-    public sealed class Money
+    public sealed class Money: ValueObject<Money>
     {
         public int OneCentCount { get; set; }
         public int TenCentCount { get; set; }
@@ -37,6 +37,22 @@ namespace DDDInPractice.Logic
                 );
 
             return sum;
+        }
+
+        protected override bool EqualsCore(Money other)
+        {
+            return
+                OneCentCount == other.OneCentCount &&
+                TenCentCount == other.TenCentCount &&
+                QuarterCentCount == other.QuarterCentCount &&
+                OneDollarCount == other.OneDollarCount &&
+                FiveDollarCount == other.FiveDollarCount &&
+                TwentyDollarCount == other.TwentyDollarCount;                
+        }
+
+        protected override int GetHashCodeCore()
+        {
+            throw new NotImplementedException();
         }
     }
 }
