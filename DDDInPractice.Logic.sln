@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDDInPractice.Logic", "DDDInPractice.Logic\DDDInPractice.Logic.csproj", "{0C870365-DE9C-4766-B6AB-66AC35E22B98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDDInPractice.Logic", "DDDInPractice.Logic\DDDInPractice.Logic.csproj", "{0C870365-DE9C-4766-B6AB-66AC35E22B98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDDInPractice.Tests", "DDDInPractice.Tests\DDDInPractice.Tests.csproj", "{B0340B79-C71F-476F-BB52-2FCE5AB2420D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDDInPractice.Tests", "DDDInPractice.Tests\DDDInPractice.Tests.csproj", "{B0340B79-C71F-476F-BB52-2FCE5AB2420D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDDInPractice.UI", "DDDInPractice.UI\DDDInPractice.UI.csproj", "{AD0BF34D-55C4-496A-9697-7C4B4C511022}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B0340B79-C71F-476F-BB52-2FCE5AB2420D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0340B79-C71F-476F-BB52-2FCE5AB2420D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0340B79-C71F-476F-BB52-2FCE5AB2420D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD0BF34D-55C4-496A-9697-7C4B4C511022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD0BF34D-55C4-496A-9697-7C4B4C511022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD0BF34D-55C4-496A-9697-7C4B4C511022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD0BF34D-55C4-496A-9697-7C4B4C511022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
