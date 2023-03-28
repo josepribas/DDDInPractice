@@ -1,4 +1,5 @@
-﻿using DDDInPractice.Logic;
+﻿using DddInPractice.UI.Common;
+using DDDInPractice.Logic;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -27,12 +28,12 @@ namespace DDDInPractice.UI
         {
             _snackMachine = snackMachine;
 
-            InsertCentCommand = new Command(() => InserMoney(Money.Cent));
-            InsertCentCommand = new Command(() => InserMoney(Money.TenCent));
-            InsertCentCommand = new Command(() => InserMoney(Money.Quarter));
-            InsertCentCommand = new Command(() => InserMoney(Money.Dollar));
-            InsertCentCommand = new Command(() => InserMoney(Money.FiveDollar));
-            InsertCentCommand = new Command(() => InserMoney(Money.TwentyDollar));
+            InsertCentCommand = new Command(() => InsertMoney(Money.Cent));
+            InsertCentCommand = new Command(() => InsertMoney(Money.TenCent));
+            InsertCentCommand = new Command(() => InsertMoney(Money.Quarter));
+            InsertCentCommand = new Command(() => InsertMoney(Money.Dollar));
+            InsertCentCommand = new Command(() => InsertMoney(Money.FiveDollar));
+            InsertCentCommand = new Command(() => InsertMoney(Money.TwentyDollar));
         }
 
         private void InsertMoney(Money money) 

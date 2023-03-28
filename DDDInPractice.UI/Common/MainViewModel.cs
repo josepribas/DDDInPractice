@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DddInPractice.Logic;
+using DDDInPractice.Logic;
+using DDDInPractice.UI;
+using NHibernate;
 
-namespace DDDInPractice.UI.Common
+namespace DddInPractice.UI.Common
 {
-    public class MainViewModel:ViewModel
+    public class MainViewModel : ViewModel
     {
         public MainViewModel()
         {
-            var viewModel = new SnackMachineViewModel(new Logic.SnackMachine());
-            _dialogService.ShowDialog (viewModel);
-
+            SnackMachine snackMachine;
+            using (ISession session = SessionFactory.OpenSession())
+            {
+                snackMachine = session.Get<SnackMachine>(1L);
+            }
+            var viewModel = new SnackMachineViewModel(snackMachine);
+            _dialogService.ShowDialog(viewModel);
         }
     }
 }
