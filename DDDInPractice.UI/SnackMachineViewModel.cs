@@ -15,7 +15,7 @@ namespace DDDInPractice.UI
         private readonly SnackMachine _snackMachine;
 
         public override string Caption => "Snack Machine";
-        public string MoneyInTransaction => _snackMachine.MoneyInTransaction.Amount.ToString();
+        public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
 
         public Command InsertCentCommand { get; private set; }
         public Command InsertTenCentCommand { get; private set; }
