@@ -1,21 +1,27 @@
-﻿using DddInPractice.UI.Common;
-using DDDInPractice.Logic;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DDDInPractice.Logic;
+using DDDInPractice.UI.Common;
+using NHibernate;
 
 namespace DDDInPractice.UI
 {
-    public class SnackMachineViewModel: ViewModel
+    public class SnackMachineViewModel : ViewModel
     {
         private readonly SnackMachine _snackMachine;
 
         public override string Caption => "Snack Machine";
         public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
+        public Money MoneyInside => _snackMachine.MoneyInside + _snackMachine.MoneyInTransaction;
+
+        private string _message = "";
+        public string Message
+        {
+            get { return _message; }
+            private set
+            {
+                _message = value;
+                Notify();
+            }
+        }
 
         public Command InsertCentCommand { get; private set; }
         public Command InsertTenCentCommand { get; private set; }
@@ -23,23 +29,52 @@ namespace DDDInPractice.UI
         public Command InsertDollarCommand { get; private set; }
         public Command InsertFiveDollarCommand { get; private set; }
         public Command InsertTwentyDollarCommand { get; private set; }
+        public Command ReturnMoneyCommand { get; private set; }
+        public Command BuySnackCommand { get; private set; }
 
         public SnackMachineViewModel(SnackMachine snackMachine)
         {
             _snackMachine = snackMachine;
 
             InsertCentCommand = new Command(() => InsertMoney(Money.Cent));
-            InsertCentCommand = new Command(() => InsertMoney(Money.TenCent));
-            InsertCentCommand = new Command(() => InsertMoney(Money.Quarter));
-            InsertCentCommand = new Command(() => InsertMoney(Money.Dollar));
-            InsertCentCommand = new Command(() => InsertMoney(Money.FiveDollar));
-            InsertCentCommand = new Command(() => InsertMoney(Money.TwentyDollar));
+            InsertTenCentCommand = new Command(() => InsertMoney(Money.TenCent));
+            InsertQuarterCommand = new Command(() => InsertMoney(Money.Quarter));
+            InsertDollarCommand = new Command(() => InsertMoney(Money.Dollar));
+            InsertFiveDollarCommand = new Command(() => InsertMoney(Money.FiveDollar));
+            InsertTwentyDollarCommand = new Command(() => InsertMoney(Money.TwentyDollar));
+            ReturnMoneyCommand = new Command(() => ReturnMoney());
+            BuySnackCommand = new Command(() => BuySnack());
         }
 
-        private void InsertMoney(Money money) 
+        private void BuySnack()
         {
-            _snackMachine.InsertMoney(money);
-            Notify("MoneyInTransaction");
+            _snackMachine.BuySnack();
+            using (ISession session = SessionFactory.OpenSession())
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(_snackMachine);
+                transaction.Commit();
+            }
+            NotifyClient("You have bought a snack");
+        }
+
+        private void ReturnMoney()
+        {
+            _snackMachine.ReturnMoney();
+            NotifyClient("Money was returned");
+        }
+
+        private void InsertMoney(Money coinOrNote)
+        {
+            _snackMachine.InsertMoney(coinOrNote);
+            NotifyClient("You have inserted: " + coinOrNote);
+        }
+
+        private void NotifyClient(string message)
+        {
+            Message = message;
+            Notify(nameof(MoneyInTransaction));
+            Notify(nameof(MoneyInside));
         }
     }
 }

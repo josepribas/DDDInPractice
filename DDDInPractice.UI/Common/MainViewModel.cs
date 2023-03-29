@@ -1,9 +1,7 @@
-﻿using DddInPractice.Logic;
-using DDDInPractice.Logic;
-using DDDInPractice.UI;
+﻿using DDDInPractice.Logic;
 using NHibernate;
 
-namespace DddInPractice.UI.Common
+namespace DDDInPractice.UI.Common
 {
     public class MainViewModel : ViewModel
     {
