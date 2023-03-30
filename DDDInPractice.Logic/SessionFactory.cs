@@ -20,14 +20,7 @@ namespace DDDInPractice.Logic
 
         public static void Init(string connectionString)
         {
-            try
-            {
-                _factory = BuildSessionFactory(connectionString);
-            }
-            catch (Exception)
-            {
-
-            }
+            _factory = BuildSessionFactory(connectionString);            
         }
 
         private static ISessionFactory BuildSessionFactory(string connectionString)
