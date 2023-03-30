@@ -1,4 +1,6 @@
-﻿namespace DDDInPractice.UI.Common
+﻿using System;
+
+namespace DDDInPractice.UI.Common
 {
     public partial class MainWindow
     {
