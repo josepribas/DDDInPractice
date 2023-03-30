@@ -17,27 +17,31 @@
         public int FiveDollarCount { get; }
         public int TwentyDollarCount { get; }
 
-        public decimal Amount => 
-                    OneCentCount * 0.01m +
-                    TenCentCount * 0.10m +
-                    QuarterCount * 0.25m +
-                    OneDollarCount +
-                    FiveDollarCount * 5m +
-                    TwentyDollarCount * 20m;
+        public decimal Amount =>
+            OneCentCount * 0.01m +
+            TenCentCount * 0.10m +
+            QuarterCount * 0.25m +
+            OneDollarCount +
+            FiveDollarCount * 5 +
+            TwentyDollarCount * 20;
+
+        private Money()
+        {
+        }
 
         public Money(
             int oneCentCount,
             int tenCentCount,
-            int quarterCentCount,
+            int quarterCount,
             int oneDollarCount,
             int fiveDollarCount,
-            int twentyDollarCount)
+            int twentyDollarCount) : this()
         {
             if (oneCentCount < 0)
                 throw new InvalidOperationException();
             if (tenCentCount < 0)
                 throw new InvalidOperationException();
-            if (quarterCentCount < 0)
+            if (quarterCount < 0)
                 throw new InvalidOperationException();
             if (oneDollarCount < 0)
                 throw new InvalidOperationException();
@@ -48,7 +52,7 @@
 
             OneCentCount = oneCentCount;
             TenCentCount = tenCentCount;
-            QuarterCount = quarterCentCount;
+            QuarterCount = quarterCount;
             OneDollarCount = oneDollarCount;
             FiveDollarCount = fiveDollarCount;
             TwentyDollarCount = twentyDollarCount;
@@ -62,8 +66,7 @@
                 money1.QuarterCount + money2.QuarterCount,
                 money1.OneDollarCount + money2.OneDollarCount,
                 money1.FiveDollarCount + money2.FiveDollarCount,
-                money1.TwentyDollarCount + money2.TwentyDollarCount
-                );
+                money1.TwentyDollarCount + money2.TwentyDollarCount);
 
             return sum;
         }
@@ -76,19 +79,17 @@
                 money1.QuarterCount - money2.QuarterCount,
                 money1.OneDollarCount - money2.OneDollarCount,
                 money1.FiveDollarCount - money2.FiveDollarCount,
-                money1.TwentyDollarCount - money2.TwentyDollarCount
-                );
+                money1.TwentyDollarCount - money2.TwentyDollarCount);
         }
 
         protected override bool EqualsCore(Money other)
         {
-            return
-                OneCentCount == other.OneCentCount &&
-                TenCentCount == other.TenCentCount &&
-                QuarterCount == other.QuarterCount &&
-                OneDollarCount == other.OneDollarCount &&
-                FiveDollarCount == other.FiveDollarCount &&
-                TwentyDollarCount == other.TwentyDollarCount;
+            return OneCentCount == other.OneCentCount
+                && TenCentCount == other.TenCentCount
+                && QuarterCount == other.QuarterCount
+                && OneDollarCount == other.OneDollarCount
+                && FiveDollarCount == other.FiveDollarCount
+                && TwentyDollarCount == other.TwentyDollarCount;
         }
 
         protected override int GetHashCodeCore()
@@ -108,7 +109,7 @@
         public override string ToString()
         {
             if (Amount < 1)
-                return "c" + (Amount * 100).ToString("0");
+                return "¢" + (Amount * 100).ToString("0");
 
             return "$" + Amount.ToString("0.00");
         }
